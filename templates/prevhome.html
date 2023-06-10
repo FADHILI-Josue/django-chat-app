@@ -1,0 +1,16 @@
+    <!-- {% include 'navbar.html' %} -->
+    <!-- template inheritence -->
+
+
+    {% include 'main.html' %}
+
+    {% block content %}
+    <h1>hello home page</h1>
+    {% endblock content %}
+    
+    {%for course in courses%}
+    <div style="display: flex;">
+        <div>{{course.id}}</div><div>----</div>
+        <div>{{course.name}}</div>
+    </div>
+    {%endfor%}
