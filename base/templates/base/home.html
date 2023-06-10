@@ -8,12 +8,12 @@
     <h1>hello home page</h1>
     {% endblock content %}
     
-    {%for course in courses%}
+    {%for room in rooms%}
     <div>
-    <a href="{% url 'room' course.id %}" style="display: flex;">
-        <div>{{course.id}}</div>
+    <a href="{% url 'room' room.id %}" style="display: flex;">
+        <div>{{room.id}}</div>
         <div>----</div>
-        <div>{{course.name}}</div>
+        <div>{{room.name}}</div>
     </a>
     </div>
     {%endfor%}

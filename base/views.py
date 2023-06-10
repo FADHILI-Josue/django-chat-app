@@ -4,24 +4,26 @@ from django.http import HttpResponse
 # Create your views here.
 #dynamic url routing
 
+from .models import Room
 
-courses = [
-    {'id':1, 'name': 'js'},
-    {'id':2, 'name': 'python'},
-    {'id':3, 'name': 'ruby'},
-    {'id':4, 'name': 'react'}
+rooms = [
+    {'id':1, 'name': 'backend develpers'},
+    {'id':2, 'name': 'font end developers'},
+    {'id':3, 'name': 'fullstack developers'},
+    {'id':4, 'name': 'designers'}
 ]
 
 def home(request):
-    return render(request, 'base/home.html', {'courses': courses})
+    rooms = Room.objects.all()
+    return render(request, 'base/home.html', {'rooms': rooms})
 
 def room(request,pk):
-    course = None
+    room = None
 
-    for i in courses:
+    for i in rooms:
         if i['id'] == int(pk):
-            course = i
-        context = {'course':course}
+            room = i
+        context = {'room':room}
 
     return render(request, 'base/room.html', context)
     # return HttpResponse('room page')
