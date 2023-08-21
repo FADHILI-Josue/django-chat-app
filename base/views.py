@@ -22,7 +22,7 @@ from .models import Room, Topic
 def loginPage(request):
     context ={'page':'sign-in'}
     if request.method == 'POST':
-        username = request.POST.get('username')
+        username = request.POST.get('username').lower()
         password = request.POST.get('password')
         
         try:
@@ -55,6 +55,11 @@ def registerUser(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.username = user.username.lower()
+            user.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error('something went wrong!!')
             
     return render(request, 'base/login_register.html', context)
 
