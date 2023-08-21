@@ -1,4 +1,11 @@
-<a href="/">
-    <h1>logo</h1>
-</a>
-<hr>
+<a href="/">DialogueHub</a>
+<form method="GET" action="{% url 'home' %}">
+  <input type="text" name="q" placeholder="Search Rooms..." />
+  {% if request.user.is_authenticated %}
+  <a href="/sign-out">logout</a>
+  {% else %}
+  <a href="/sign-in">login</a>
+
+  {% endif %}
+</form>
+<hr />

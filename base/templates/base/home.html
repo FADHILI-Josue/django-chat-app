@@ -1,19 +1,55 @@
-    <!-- {% include 'navbar.html' %} -->
-    <!-- template inheritence -->
-
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="{% static 'home.css' %}" rel="stylesheet"/>
+</head>
+<body>
 
     {% include 'main.html' %}
 
     {% block content %}
+    
+    
     <h1>hello home page</h1>
-    {% endblock content %}
+    <h1><a href="/rooms/create">Create Room</a></h1>
+    <h1>{{rooms_nbr}} Room available</h1>
+
+    <div>
+            
+        <a href='{% url "home" %}'>All<a/>
+
+        </div>
+
+    {% for topic in topics %}
+        <div>
+            
+        <a href='{% url "home" %}?q={{ topic.name }}'>{{ topic.name }}<a/>
+
+        </div>
+    {% endfor %}
     
     {%for room in rooms%}
     <div>
-    <a href="{% url 'room' room.id %}" style="display: flex;">
-        <div>{{room.id}}</div>
+    <div style="display: flex;">
+        {% if request.user == room.host %}
+        <a href='{% url "updateRoom" room.id %}'>update<a/>
+            <a href='{% url "deleteRoom" room.id %}'>delete<a/>
+        {% endif %}
+        <div>
+            @{{room.host.username}}
+            {{room.id}}
+        </div>
         <div>----</div>
-        <div>{{room.name}}</div>
-    </a>
+        <div> <a href="{% url 'room' room.id %}">{{room.name}}</a> <small>{{room.topic.name}}</small> </div>
+    </div>
     </div>
     {%endfor%}
+
+    {% endblock content %}
+
+</body>
+</html>
